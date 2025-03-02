@@ -60,3 +60,15 @@
 **Technology Stack**:       [/docs/tech_stack.md]
 **NIST Framework Summary**: [/docs/nist_framework_summary.md]
 **OSINT Research Report**:  [/docs/osint_research.md]
+
+
+# Usage 
+Run the following commands to start the project:
+
+```shell
+python -m src.api.app
+
+In another terminal window,
+cd src/frontend
+npm start
+```
