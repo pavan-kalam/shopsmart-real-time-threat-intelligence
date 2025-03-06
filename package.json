@@ -1,0 +1,26 @@
+{
+  "name": "shopsmart-real-time-threat-intelligence",
+  "version": "1.0.0",
+  "description": "*ShopSmart Solutions* is a secure and user-friendly e-commerce platform designed to provide a seamless online shopping experience. The project integrates *OSINT tools*, *Large Language Models (LLMs)*, and aligns with the *NIST Cybersecurity Framework (CSF) 2.0* and *NIST Risk Management Framework (RMF)* to ensure robust cybersecurity and risk management.",
+  "main": "App.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavan-kalam/shopsmart-real-time-threat-intelligence.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavan-kalam/shopsmart-real-time-threat-intelligence/issues"
+  },
+  "homepage": "https://github.com/pavan-kalam/shopsmart-real-time-threat-intelligence#readme",
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}
