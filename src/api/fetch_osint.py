@@ -1,70 +1,125 @@
 import requests
 import psycopg2
-import schedule
 import time
-from api.virustotal import fetch_virustotal_data
-from api.hibp import check_email_breach
-from api.abuseipdb import check_ip_abuse
-from api.shodan import search_shodan # type: ignore
 
-# Database Connection Configuration
-db_config = {
-    "dbname": "threat_intel",
-    "user": "admin",
-    "password": "securepass",
+# API Keys (Replace with your actual API keys)
+SHODAN_API_KEY = "your_shodan_api_key"
+HIBP_API_KEY = "your_hibp_api_key"
+SECURITYTRAILS_API_KEY = "your_securitytrails_api_key"
+
+# Database connection details
+DB_CONFIG = {
+    "dbname": "shopsmart",
+    "user": "shopsmart",
+    "password": "123456789",
     "host": "localhost",
     "port": "5432"
 }
 
-# Function to fetch threat data from Shodan
-def fetch_shodan(ip="8.8.8.8"):
-    return search_shodan("port:22", "your_shodan_api_key")
-
-# Function to fetch threat data from Have I Been Pwned
-def fetch_hibp(email="test@example.com"):
-    return check_email_breach(email)
-
-# Function to fetch threat data from VirusTotal
-def fetch_virustotal(url="http://example.com"):
-    return fetch_virustotal_data("your_virustotal_api_key", url)
-
-# Function to fetch threat data from AbuseIPDB
-def fetch_abuseipdb(ip_address="8.8.8.8"):
-    return check_ip_abuse("your_abuseipdb_api_key", ip_address)
-
-# Function to store threat data in the database
-def store_threat_data(asset_id, threat_name, vulnerability_description, likelihood, impact):
+# Shodan API to fetch IP information
+def fetch_shodan_data(ip_address):
+    url = f"https://api.shodan.io/shodan/host/{ip_address}?key={SHODAN_API_KEY}"
     try:
-        conn = psycopg2.connect(**db_config)
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching Shodan data: {e}")
+        return None
+
+# HIBP API to check email breaches
+def fetch_hibp_data(email):
+    url = f"https://haveibeenpwned.com/api/v3/breachedaccount/{email}"
+    headers = {
+        "hibp-api-key": HIBP_API_KEY,
+        "User-Agent": "YourAppName/1.0"
+    }
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching HIBP data: {e}")
+        return None
+
+# SecurityTrails API to fetch domain information
+def fetch_securitytrails_data(domain):
+    url = f"https://api.securitytrails.com/v1/domain/{domain}"
+    headers = {"APIKEY": SECURITYTRAILS_API_KEY}
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching SecurityTrails data: {e}")
+        return None
+
+# Store threat data in the database
+def store_threat_data(asset_id, threat_name, vulnerability_description, likelihood, impact):
+    conn = None
+    try:
+        conn = psycopg2.connect(**DB_CONFIG)
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO tva_mapping (asset_id, threat_name, vulnerability_description, likelihood, impact, risk_score)
-            VALUES (%s, %s, %s, %s, %s, %s)
-        """, (asset_id, threat_name, vulnerability_description, likelihood, impact, likelihood * impact))
+            INSERT INTO tva_mapping (asset_id, threat_name, vulnerability_description, likelihood, impact)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (asset_id, threat_name, vulnerability_description, likelihood, impact))
         conn.commit()
-        cursor.close()
-        conn.close()
-        print(f"Stored threat: {threat_name}")
-    except Exception as e:
-        print(f"Error storing threat data: {e}")
+        print("Threat data stored successfully!")
+    except psycopg2.Error as e:
+        print(f"Database error: {e}")
+    finally:
+        if conn:
+            conn.close()
 
-# Automated task to fetch and store OSINT threat data
-def fetch_and_store_osint():
-    shodan_data = fetch_shodan()
-    hibp_data = fetch_hibp()
-    virustotal_data = fetch_virustotal()
-    abuseipdb_data = fetch_abuseipdb()
-    
-    store_threat_data(1, "Exposed Ports", shodan_data, 4, 5)
-    store_threat_data(2, "Credential Breach", hibp_data, 5, 5)
-    store_threat_data(3, "Malware Analysis", virustotal_data, 4, 4)
-    store_threat_data(4, "Suspicious IP Activity", abuseipdb_data, 3, 4)
+# Fetch and store OSINT data
+def fetch_and_store_osint_data():
+    # Example IP, email, and domain to fetch data for
+    ip_address = "8.8.8.8"
+    email = "test@example.com"
+    domain = "example.com"
 
-# Schedule the script to run periodically
-schedule.every(6).hours.do(fetch_and_store_osint)  # Runs every 6 hours
+    # Fetch Shodan data
+    shodan_data = fetch_shodan_data(ip_address)
+    if shodan_data:
+        store_threat_data(
+            asset_id=1,  # Replace with actual asset ID
+            threat_name="Open Ports Detected",
+            vulnerability_description=f"Open ports: {shodan_data.get('ports', [])}",
+            likelihood=4,
+            impact=5
+        )
+
+    # Fetch HIBP data
+    hibp_data = fetch_hibp_data(email)
+    if hibp_data:
+        for breach in hibp_data:
+            store_threat_data(
+                asset_id=2,  # Replace with actual asset ID
+                threat_name="Email Breach Detected",
+                vulnerability_description=f"Breach: {breach.get('Name')}",
+                likelihood=3,
+                impact=4
+            )
+
+    # Fetch SecurityTrails data
+    securitytrails_data = fetch_securitytrails_data(domain)
+    if securitytrails_data:
+        store_threat_data(
+            asset_id=3,  # Replace with actual asset ID
+            threat_name="Domain Information Exposed",
+            vulnerability_description=f"Domain: {securitytrails_data.get('current_ip', 'N/A')}",
+            likelihood=2,
+            impact=3
+        )
+
+# Run the script periodically
+def run_periodically(interval=3600):  # Default interval: 1 hour (3600 seconds)
+    while True:
+        fetch_and_store_osint_data()
+        time.sleep(interval)
 
 if __name__ == "__main__":
-    fetch_and_store_osint()  # Run once immediately
-    while True:
-        schedule.run_pending()
-        time.sleep(3600)  # Check every hour
+    fetch_and_store_osint_data()  # Run once
+    # Uncomment the following line to run periodically
+    # run_periodically()
