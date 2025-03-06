@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 node_modules
+=======
+/isa
+/src/frontend/src/components/config.js
+>>>>>>> c20c007a351797107c2e0fa9e14c1f30de3bc3fd
