@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, jsonify
 from fetch_osint import fetch_and_store_osint_data
 import datetime
 import random
@@ -150,7 +151,6 @@ def get_shodan_data():
 # Enhanced Dashboard API endpoints with more structured data
 @app.route('/api/threat-logs', methods=['GET'])
 def get_threat_logs():
-    # More detailed threat logs
     threat_logs = [
         "Malware found in file example.exe from host 192.168.1.45",
         "Phishing attempt reported on example.com targeting financial credentials",
@@ -181,11 +181,13 @@ def get_real_time_alerts():
 def osint_data():
     return jsonify({"message": "OSINT data endpoint"})
 
+# src/api/app.py
+
+
 @app.route('/api/fetch_osint', methods=['GET'])
 def fetch_osint():
     fetch_and_store_osint_data()
     return jsonify({"message": "OSINT data fetched and stored successfully!"})
-
 
 if __name__ == '__main__':
     with app.app_context():
