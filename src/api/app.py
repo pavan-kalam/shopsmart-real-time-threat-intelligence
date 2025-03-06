@@ -4,6 +4,7 @@ from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, jsonify
 from fetch_osint import fetch_and_store_osint_data
+from risk_analysis import calculate_risk, refine_risk_with_llm
 import datetime
 import random
 
@@ -181,7 +182,28 @@ def get_real_time_alerts():
 def osint_data():
     return jsonify({"message": "OSINT data endpoint"})
 
-# src/api/app.py
+@app.route('/api/calculate_risk', methods=['POST'])
+def calculate_risk_endpoint():
+    data = request.json
+    threat_description = data.get("threat_description")
+    likelihood = data.get("likelihood")
+    impact = data.get("impact")
+    
+    if not threat_description or likelihood is None or impact is None:
+        return jsonify({"error": "Threat description, likelihood, and impact are required"}), 400
+    
+    # Refine scores using LLM (optional)
+    refined_likelihood, refined_impact = refine_risk_with_llm(threat_description)
+    
+    # Calculate risk score
+    risk_score = calculate_risk(refined_likelihood, refined_impact)
+    
+    return jsonify({
+        "threat_description": threat_description,
+        "likelihood": refined_likelihood,
+        "impact": refined_impact,
+        "risk_score": risk_score
+    })
 
 
 @app.route('/api/fetch_osint', methods=['GET'])
