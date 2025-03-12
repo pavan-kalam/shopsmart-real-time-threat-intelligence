@@ -1,14 +1,13 @@
 # api/shodan.py
-import shodan
+import requests
 
-# Initialize the Shodan API
-def get_shodan_api(api_key):
-    return shodan.Shodan(api_key)
-
-def search_shodan(api_key, query):
-    api = get_shodan_api(api_key)
+def search_zoomeye(api_key, query):
+    url = f"https://api.zoomeye.org/host/search?query={query}"
+    headers = {
+        'Authorization': f'Bearer {api_key}'
+    }
     try:
-        results = api.search(query)
-        return results
-    except shodan.APIError as e:
+        response = requests.get(url, headers=headers)
+        return response.json() if response.status_code == 200 else {"error": "Failed to fetch data"}
+    except Exception as e:
         return {"error": str(e)}
