@@ -497,13 +497,8 @@
 // export default Dashboard;
 
 
-// src/frontend/src/components/Dashboard.js
 import React, { useEffect, useState } from 'react';
 import './Dashboard.css'; // You'll need to create this CSS file
-import VirusTotal from './VirusTotal'; // Import the VirusTotal component
-import Shodan from './Shodan'; // Import the Shodan component
-import AbuseIPDB from './AbuseIPDB'; // Import the AbuseIPDB component
-import HIBP from './HIBP'; // Import the HIBP component
 
 function Dashboard() {
   const [threatLogs, setThreatLogs] = useState([]);
@@ -518,7 +513,6 @@ function Dashboard() {
   const [averageRiskScore, setAverageRiskScore] = useState(0);
   const [highRiskCount, setHighRiskCount] = useState(0);
   const [alertsByType, setAlertsByType] = useState({});
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -817,14 +811,6 @@ function Dashboard() {
                   <li>No real-time alerts available.</li>
                 )}
               </ul>
-            </div>
-            
-            {/* OSINT Tools Section */}
-            <div className="osint-tools">
-              <VirusTotal />
-              <Shodan />
-              <AbuseIPDB />
-              <HIBP />
             </div>
           </div>
         </>
