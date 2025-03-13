@@ -1,7 +1,7 @@
 # src/risk_analysis.py
 import openai
 
-# Set your OpenAI API key
+# Set Your OpenAI API Key
 openai.api_key = "openai_api_key"
 
 def refine_risk_with_llm(threat_description):
