@@ -27,7 +27,7 @@ def refine_risk_with_llm(threat_description):
         temperature=0.7,
     )
     
-    # Extract likelihood and impact from the response
+    # Extract Likelihood and Impact from the Response
     result = response.choices[0].text.strip()
     likelihood = int(result.split("likelihood=")[1].split(",")[0])
     impact = int(result.split("impact=")[1])
