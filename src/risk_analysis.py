@@ -34,7 +34,7 @@ def refine_risk_with_llm(threat_description):
     
     return likelihood, impact
 
-# Example usage
+# Example Usage
 threat_description = "SQL Injection vulnerability in the customer database."
 likelihood, impact = refine_risk_with_llm(threat_description)
 risk_score = calculate_risk(likelihood, impact)
