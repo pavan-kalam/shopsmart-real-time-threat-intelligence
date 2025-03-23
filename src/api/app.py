@@ -1,54 +1,31 @@
 from flask import Flask, jsonify, request
+import logging
+from api.logger import logger
 from flask_sqlalchemy import SQLAlchemy
+from api.fetch_osint import fetch_osint_data
+from src.api.risk_analysis import analyze_risk
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, jsonify
-from fetch_osint import fetch_and_store_osint_data
-from risk_analysis import calculate_risk, refine_risk_with_llm
-import datetime
-import random
+from api.models import db, User, TvaMapping, ThreatData
+from src.api.risk_prioritization import RiskPrioritizer
+from src.api.incident_response import IncidentResponder
+from datetime import datetime
+from time import time
+from datetime import timedelta
 
-# Import your API functions
-from api.virustotal import fetch_virustotal_data
-from api.hibp import check_email_breach
-from api.abuseipdb import check_ip_abuse
-from api.shodan import search_shodan
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
-# Configure the database connection
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shopsmart:123456789@localhost:5432/shopsmart'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db.init_app(app)
 
-# Define the User model
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(120), nullable=False)
+# Initialize risk prioritizer and incident responder
+risk_prioritizer = RiskPrioritizer()
+incident_responder = IncidentResponder()
 
-# Define the Assets model
-class Asset(db.Model):
-    __tablename__ = 'assets'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    type = db.Column(db.String(50), nullable=False)
-    created_at = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp())
-
-# Define the TVA Mapping model
-class TVAMapping(db.Model):
-    __tablename__ = 'tva_mapping'
-    id = db.Column(db.Integer, primary_key=True)
-    asset_id = db.Column(db.Integer, db.ForeignKey('assets.id', ondelete='CASCADE'))
-    threat_name = db.Column(db.String(255), nullable=False)
-    vulnerability_description = db.Column(db.Text, nullable=False)
-    likelihood = db.Column(db.Integer, nullable=False)
-    impact = db.Column(db.Integer, nullable=False)
-    risk_score = db.Column(db.Integer, default=0, nullable=False)
-
-# User Registration
 @app.route('/api/register', methods=['POST'])
 def register():
     data = request.get_json()
@@ -69,7 +46,6 @@ def register():
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
 
-# User Login
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -85,7 +61,6 @@ def login():
     else:
         return jsonify({"error": "Invalid username or password"}), 401
 
-# Fetch User Account Details
 @app.route('/api/user/<int:user_id>', methods=['GET'])
 def get_user_details(user_id):
     user = User.query.get(user_id)
@@ -94,124 +69,117 @@ def get_user_details(user_id):
     else:
         return jsonify({"error": "User not found"}), 404
 
-# VirusTotal Endpoint
-@app.route('/api/virustotal', methods=['GET'])
-def get_virustotal_data():
-    url = request.args.get('url')
-    api_key = request.headers.get('API-Key')
-
-    if not url:
-        return jsonify({"error": "URL is required"}), 400
-
-    if not api_key:
-        return jsonify({"error": "API key is required"}), 400
-
-    result = fetch_virustotal_data(api_key, url)
-    return jsonify(result)
-
-# HIBP Endpoint
-@app.route('/api/hibp', methods=['GET'])
-def get_hibp_data():
-    email = request.args.get('email')
-    if not email:
-        return jsonify({"error": "Email is required"}), 400
-
-    breaches = check_email_breach(email)
-    return jsonify(breaches)
-
-# AbuseIPDB Endpoint
-@app.route('/api/abuseipdb', methods=['GET'])
-def get_abuseipdb_data():
-    ip_address = request.args.get('ip_address')
-    api_key = request.headers.get('API-Key')
-
-    if not ip_address:
-        return jsonify({"error": "IP address is required"}), 400
-
-    if not api_key:
-        return jsonify({"error": "API key is required"}), 400
-
-    result = check_ip_abuse(api_key, ip_address)
-    return jsonify(result)
-
-# Shodan Search Endpoint
-@app.route('/api/shodan', methods=['GET'])
-def get_shodan_data():
-    query = request.args.get('query')
-    api_key = request.headers.get('API-Key')
-
-    if not query:
-        return jsonify({"error": "Query is required"}), 400
-
-    if not api_key:
-        return jsonify({"error": "API key is required"}), 400
-
-    result = search_shodan(api_key, query)
-    return jsonify(result)
-
-# Enhanced Dashboard API endpoints with more structured data
-@app.route('/api/threat-logs', methods=['GET'])
+@app.route('/api/spiderfoot/threat-logs', methods=['GET'])
 def get_threat_logs():
-    threat_logs = [
-        "Malware found in file example.exe from host 192.168.1.45",
-        "Phishing attempt reported on example.com targeting financial credentials",
-        "Suspicious IP 203.0.113.42 attempted multiple login failures",
-        "Malware signature detected in network traffic from 198.51.100.23",
-        "Phishing email detected with subject 'Urgent: Update your account'",
-        "IP 192.0.2.18 flagged for scanning activity"
-    ]
-    return jsonify(threat_logs)
+    try:
+        start_time = time()
+        osint_data = fetch_osint_data()
+        logger.info(f"fetch_osint_data took {time() - start_time:.2f} seconds")
+        
+        if not isinstance(osint_data, dict) or 'events' not in osint_data:
+            logger.error("Invalid OSINT data structure received.")
+            return jsonify({"error": "Invalid OSINT data structure."}), 500
+
+        events = osint_data['events']
+        threat_descriptions = [event["description"] for event in events]
+        risk_scores = analyze_risk(threat_descriptions)
+        
+        # Fetch TVA mappings
+        tva_mappings = [
+            {
+                'threat_name': tva.threat_name,
+                'likelihood': tva.likelihood,
+                'impact': tva.impact
+            } for tva in TvaMapping.query.all()
+        ]
+
+        # Fetch threat data from the database for recency
+        threats_with_metadata = []
+        for event, risk_score in zip(events, risk_scores):
+            threat_entry = ThreatData.query.filter_by(description=event['description']).order_by(ThreatData.created_at.desc()).first()
+            created_at = threat_entry.created_at if threat_entry else None
+            threats_with_metadata.append({
+                'description': event['description'],
+                'threat_type': event['threat_type'],
+                'risk_score': risk_score,
+                'created_at': created_at
+            })
+
+        # Prioritize threats
+        prioritized_threats = risk_prioritizer.prioritize_threats(threats_with_metadata, tva_mappings)
+
+        # Generate response plans
+        threat_logs = []
+        for threat in prioritized_threats:
+            response_plan = incident_responder.generate_response_plan(threat)
+            threat_logs.append({
+                'log': f"{threat['description']} (Risk: {threat['risk_score']}, Priority: {threat['priority_score']:.2f})",
+                'response_plan': response_plan
+            })
+
+        return jsonify(threat_logs if threat_logs else [{"log": "No threat logs available", "response_plan": {}}])
+    except Exception as e:
+        logger.error(f"Failed to fetch threat logs: {str(e)}")
+        return jsonify([{"log": "Hardcoded Threat Log 1", "response_plan": {}}, {"log": "Hardcoded Threat Log 2", "response_plan": {}}]), 200
 
 @app.route('/api/risk-scores', methods=['GET'])
 def get_risk_scores():
-    risk_scores = [92, 65, 78, 85, 45, 88]
-    return jsonify(risk_scores)
+    try:
+        osint_data = fetch_osint_data()
+        threat_descriptions = [event["description"] for event in osint_data.get("events", [])]
+        risk_scores = analyze_risk(threat_descriptions)
+        return jsonify(risk_scores if risk_scores else [50, 75, 90])
+    except Exception as e:
+        logger.error(f"Failed to fetch risk scores: {str(e)}")
+        return jsonify([50, 75, 90]), 200
 
 @app.route('/api/real-time-alerts', methods=['GET'])
 def get_real_time_alerts():
-    real_time_alerts = [
-        "Alert: Suspicious login attempt detected from unusual location.",
-        "Alert: New malware signature detected in outbound network traffic.",
-        "Alert: Unusual outbound traffic detected to known malicious IP.",
-        "Alert: Multiple failed authentication attempts for admin account.",
-        "Alert: Suspicious file download detected on marketing workstation."
-    ]
-    return jsonify(real_time_alerts)
+    try:
+        # Fetch recent alerts from threat_data (last 24 hours)
+        alerts = ThreatData.query.filter(ThreatData.created_at >= datetime.now() - timedelta(hours=24)).all()
+        alert_threats = [
+            {
+                'description': alert.description,
+                'threat_type': alert.threat_type,
+                'risk_score': alert.risk_score,
+                'created_at': alert.created_at
+            } for alert in alerts
+        ]
 
-@app.route('/api/osint', methods=['GET'])
-def osint_data():
-    return jsonify({"message": "OSINT data endpoint"})
+        # Fetch TVA mappings
+        tva_mappings = [
+            {
+                'threat_name': tva.threat_name,
+                'likelihood': tva.likelihood,
+                'impact': tva.impact
+            } for tva in TvaMapping.query.all()
+        ]
 
-@app.route('/api/calculate_risk', methods=['POST'])
-def calculate_risk_endpoint():
-    data = request.json
-    threat_description = data.get("threat_description")
-    likelihood = data.get("likelihood")
-    impact = data.get("impact")
-    
-    if not threat_description or likelihood is None or impact is None:
-        return jsonify({"error": "Threat description, likelihood, and impact are required"}), 400
-    
-    # Refine scores using LLM (optional)
-    refined_likelihood, refined_impact = refine_risk_with_llm(threat_description)
-    
-    # Calculate risk score
-    risk_score = calculate_risk(refined_likelihood, refined_impact)
-    
-    return jsonify({
-        "threat_description": threat_description,
-        "likelihood": refined_likelihood,
-        "impact": refined_impact,
-        "risk_score": risk_score
-    })
+        # Prioritize alerts
+        prioritized_alerts = risk_prioritizer.prioritize_threats(alert_threats, tva_mappings)
 
+        # Generate response plans
+        real_time_alerts = []
+        for alert in prioritized_alerts:
+            response_plan = incident_responder.generate_response_plan(alert)
+            real_time_alerts.append({
+                'alert': f"{alert['description']} (Priority: {alert['priority_score']:.2f})",
+                'response_plan': response_plan
+            })
 
-@app.route('/api/fetch_osint', methods=['GET'])
-def fetch_osint():
-    fetch_and_store_osint_data()
-    return jsonify({"message": "OSINT data fetched and stored successfully!"})
+        return jsonify(real_time_alerts if real_time_alerts else [
+            {"alert": "No real-time alerts available", "response_plan": {}}
+        ])
+    except Exception as e:
+        logger.error(f"Failed to fetch real-time alerts: {str(e)}")
+        return jsonify([
+            {"alert": "Hardcoded Alert 1", "response_plan": {}},
+            {"alert": "Hardcoded Alert 2", "response_plan": {}}
+        ]), 200
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Create tables
-    app.run(debug=True, host='0.0.0.0', port=5001)
+        db.create_all()
+    app.run(debug=True, host='0.0.0.0', port=5002)
+    logger.info("Application is running on port 5002")
