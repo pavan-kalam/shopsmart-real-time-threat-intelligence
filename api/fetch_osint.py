@@ -1,144 +1,179 @@
-import requests
-import psycopg2
-import time
-from datetime import datetime
+#!/usr/bin/env python3
+# api/fetch_osint.py
 
-# API Keys (Replace with your actual API keys)
-SHODAN_API_KEY = "dfhwfkMbOVzPFxUJvxa8Yn6qMCxOvqBD"
-HIBP_API_KEY = "your_hibp_api_key"
-SECURITYTRAILS_API_KEY = "your_securitytrails_api_key"
+import os
+import logging
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
+from api.spiderfoot import fetch_spiderfoot_data
+from api.models import db, ThreatData, TvaMapping
 
-# Database connection details
-DB_CONFIG = {
-    "dbname": "shopsmart",
-    "user": "shopsmart",
-    "password": "123456789",
-    "host": "localhost",
-    "port": "5432"
-}
+# Load environment variables from .env file
+load_dotenv()
 
-# Shodan API to fetch IP information
-def fetch_shodan_data(ip_address):
-    url = f"https://api.shodan.io/shodan/host/{ip_address}?key={SHODAN_API_KEY}"
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('osint_fetcher.log'),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger('osint_fetcher')
+
+# Database configuration
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://shopsmart:123456789@localhost:5432/shopsmart')
+
+def get_db_session():
+    """Create and return a database session."""
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching Shodan data: {e}")
+        engine = create_engine(DATABASE_URL)
+        Session = sessionmaker(bind=engine)
+        return Session()
+    except Exception as e:
+        logger.error(f"Database connection error: {str(e)}")
         return None
 
-# HIBP API to check email breaches
-def fetch_hibp_data(email):
-    url = f"https://haveibeenpwned.com/api/v3/breachedaccount/{email}"
-    headers = {
-        "hibp-api-key": HIBP_API_KEY,
-        "User-Agent": "YourAppName/1.0"  # Replace with your app name
-    }
+def fetch_spiderfoot_intelligence(query):
+    """Fetch threat intelligence from SpiderFoot CLI."""
     try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching HIBP data: {e}")
-        return None
+        data = fetch_spiderfoot_data(query)
+        if not data or 'events' not in data or len(data['events']) == 0:
+            logger.warning(f"No data returned for query: {query}")
+            logger.info(f"Returning default threat for query: {query}")
+            return [{"description": f"Default threat for {query}", "threat_type": "Other", "risk": "high"}]
+        return data['events']
+    except Exception as e:
+        logger.error(f"Error fetching SpiderFoot data for query '{query}': {str(e)}")
+        logger.info(f"Returning default threat for query: {query}")
+        return [{"description": f"Default threat for {query}", "threat_type": "Other", "risk": "high"}]
 
-# SecurityTrails API to fetch domain information
-def fetch_securitytrails_data(domain):
-    url = f"https://api.securitytrails.com/v1/domain/{domain}"
-    headers = {"APIKEY": SECURITYTRAILS_API_KEY}
-    try:
-        response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching SecurityTrails data: {e}")
-        return None
+def process_threat_data(data):
+    """Process the threat data and determine threat type."""
+    processed_data = []
+    for item in data:
+        if isinstance(item, dict):
+            description = item.get("description", "No description available")
+            threat_type = item.get("threat_type", "Other")
+            if not threat_type or threat_type == "Other":
+                if "malware" in description.lower():
+                    threat_type = "Malware"
+                elif "phishing" in description.lower():
+                    threat_type = "Phishing"
+                elif "ip" in description.lower():
+                    threat_type = "IP"
+            processed_data.append({
+                "description": description,
+                "threat_type": threat_type,
+                "risk": item.get("risk", "unknown")
+            })
+        else:
+            logger.warning(f"Expected a dictionary but got a {type(item).__name__}: {item}")
+    return processed_data
 
-# Store threat data in the database
-def store_threat_data(threat_type, source_name, source_url, description, severity_level, confidence_level, affected_assets, mitigation_recommendations, tags):
-    conn = None
+def save_threat_data(threats):
+    """Save processed threat data to the database."""
+    session = get_db_session()
+    if not session:
+        logger.error("Failed to save threat data: No database session.")
+        return
+
     try:
-        conn = psycopg2.connect(**DB_CONFIG)
-        cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO threat_data (
-                threat_type, source_name, source_url, description, severity_level, confidence_level,
-                first_seen, last_updated, affected_assets, mitigation_recommendations, tags, is_active
-            )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """, (
-            threat_type, source_name, source_url, description, severity_level, confidence_level,
-            datetime.now(), datetime.now(), affected_assets, mitigation_recommendations, tags, True
-        ))
-        conn.commit()
-        print("Threat data stored successfully!")
-    except psycopg2.Error as e:
-        print(f"Database error: {e}")
+        new_threats = 0
+        for threat in threats:
+            # Check for existing threat to avoid duplicates
+            existing_threat = session.query(ThreatData).filter_by(description=threat["description"]).first()
+            if not existing_threat:
+                threat_entry = ThreatData(
+                    threat_type=threat["threat_type"],
+                    description=threat["description"],
+                    risk_score=0  # Risk score will be updated later via analyze_risk in app.py
+                )
+                session.add(threat_entry)
+                new_threats += 1
+        session.commit()
+        logger.info(f"Saved {new_threats} new threats to the database (out of {len(threats)} processed).")
+    except SQLAlchemyError as e:
+        session.rollback()
+        logger.error(f"Failed to save threat data: {str(e)}")
     finally:
-        if conn:
-            conn.close()
+        session.close()
 
-# Fetch and store OSINT data
-def fetch_and_store_osint_data():
-    # Example IP, email, and domain to fetch data for
-    ip_address = "8.8.8.8"
-    email = "test@example.com"
-    domain = "example.com"
+def update_tva_mapping(threats):
+    """Update TVA mapping based on processed threats."""
+    session = get_db_session()
+    if not session:
+        logger.error("Failed to update TVA mapping: No database session.")
+        return
 
-    # Fetch Shodan data
-    shodan_data = fetch_shodan_data(ip_address)
-    if shodan_data:
-        store_threat_data(
-            threat_type="Open Ports Detected",
-            source_name="Shodan",
-            source_url=f"https://www.shodan.io/host/{ip_address}",
-            description=f"Open ports: {shodan_data.get('ports', [])}",
-            severity_level="High",
-            confidence_level="Medium",
-            affected_assets=ip_address,
-            mitigation_recommendations="Close unnecessary ports and secure services.",
-            tags=["open_ports", "network_security"]
-        )
+    try:
+        new_mappings = 0
+        for threat in threats:
+            existing_mapping = session.query(TvaMapping).filter_by(threat_name=threat["threat_type"]).first()
+            if not existing_mapping:
+                new_mapping = TvaMapping(
+                    asset_id=0,  # Default asset_id (should be updated based on actual asset in a production system)
+                    description=f"Threat type: {threat['threat_type']}",
+                    threat_name=threat["threat_type"],
+                    likelihood=1,  # Default likelihood (integer)
+                    impact=1      # Default impact (integer)
+                )
+                session.add(new_mapping)
+                new_mappings += 1
+        session.commit()
+        logger.info(f"Updated TVA mapping with {new_mappings} new entries (out of {len(threats)} threats).")
+    except SQLAlchemyError as e:
+        session.rollback()
+        logger.error(f"Failed to update TVA mapping: {str(e)}")
+    finally:
+        session.close()
 
-    # Fetch HIBP data
-    hibp_data = fetch_hibp_data(email)
-    if hibp_data:
-        for breach in hibp_data:
-            store_threat_data(
-                threat_type="Email Breach Detected",
-                source_name="Have I Been Pwned",
-                source_url=f"https://haveibeenpwned.com/breach/{breach.get('Name')}",
-                description=f"Email {email} was found in the {breach.get('Name')} breach.",
-                severity_level="Medium",
-                confidence_level="High",
-                affected_assets=email,
-                mitigation_recommendations="Change your password and enable 2FA.",
-                tags=["email_breach", "account_security"]
-            )
+def fetch_osint_data(query="localhost:5002"):
+    """
+    Fetch OSINT data for the given query and process it.
+    
+    Args:
+        query (str): The target to scan (default: "localhost:5002").
+    
+    Returns:
+        dict: A dictionary containing processed SpiderFoot events.
+    """
+    # Validate query
+    if not query or not isinstance(query, str) or query.strip() == "":
+        logger.error("Invalid or empty query provided, using default query 'localhost:5002'")
+        query = "localhost:5002"
+    
+    logger.info(f"Starting OSINT data fetch for query: {query}")
+    
+    # Fetch SpiderFoot data
+    spiderfoot_data = fetch_spiderfoot_intelligence(query)
+    if not spiderfoot_data:
+        logger.warning(f"No data received from SpiderFoot for query: {query}")
+        return {"events": []}
 
-    # Fetch SecurityTrails data
-    securitytrails_data = fetch_securitytrails_data(domain)
-    if securitytrails_data:
-        store_threat_data(
-            threat_type="Domain Information Exposed",
-            source_name="SecurityTrails",
-            source_url=f"https://securitytrails.com/domain/{domain}",
-            description=f"Domain {domain} is associated with IP {securitytrails_data.get('current_ip', 'N/A')}.",
-            severity_level="Low",
-            confidence_level="High",
-            affected_assets=domain,
-            mitigation_recommendations="Monitor domain activity and secure DNS records.",
-            tags=["domain_info", "dns_security"]
-        )
+    # Process the data
+    processed_threats = process_threat_data(spiderfoot_data)
+    logger.info(f"Processed {len(processed_threats)} threats from SpiderFoot for query: {query}")
 
-# Run the script periodically
-def run_periodically(interval=3600):  # Default interval: 1 hour (3600 seconds)
-    while True:
-        fetch_and_store_osint_data()
-        time.sleep(interval)
+    # Save to database
+    save_threat_data(processed_threats)
+    update_tva_mapping(processed_threats)
+
+    # Prepare response for app.py
+    events = [
+        {
+            "description": threat["description"],
+            "threat_type": threat["threat_type"]
+        }
+        for threat in processed_threats
+    ]
+
+    return {"events": events}
 
 if __name__ == "__main__":
-    fetch_and_store_osint_data()  # Run once
-    # Uncomment the following line to run periodically
-    # run_periodically()
+    # Test the function standalone
+    result = fetch_osint_data("localhost:5002")
+    print(f"OSINT Data: {result}")
