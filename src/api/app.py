@@ -2,41 +2,40 @@
 import importlib
 import api.spiderfoot
 importlib.reload(api.spiderfoot)
-
 from flask import Flask, jsonify, request
-import logging
-from api.logger import logger
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
-from api.models import db, User, TvaMapping, ThreatData, AlertLog
+from api.models import db, User, TvaMapping, ThreatData, AlertLog, Asset
 from api.fetch_osint import fetch_osint_data
 from api.spiderfoot import fetch_spiderfoot_data
 from src.api.risk_analysis import analyze_risk
+from src.api.risk_scoring import RiskScorer
 from src.api.risk_prioritization import RiskPrioritizer
 from src.api.incident_response import IncidentResponder
 from api.alerts import send_alert_if_high_risk
 from api.cba_analysis import suggest_mitigation
 from api.api_optimizer import get_threat_data
+from src.api.risk_generator import ThreatReportGenerator
 from datetime import datetime, timedelta
-from time import time
+import time
 import threading
-from api.models import db, Asset
-from transformers import pipeline  # For LLM integration
+import os
+import subprocess
+from transformers import pipeline
+from src.api.custom_logging import setup_logger
 
-logging.basicConfig(level=logging.INFO)
 app = Flask(__name__)
-
-# Enable CORS for frontend
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://shopsmart:123456789@localhost:5432/shopsmart'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-# Initialize LLM for zero-shot classification (severity analysis)
+logger = setup_logger('app')
+
+# Initialize models and components
 try:
     llm_classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
     logger.info("Successfully initialized Hugging Face LLM for real-time alert analysis")
@@ -44,7 +43,6 @@ except Exception as e:
     logger.error(f"Failed to initialize LLM classifier: {str(e)}")
     llm_classifier = None
 
-# Initialize text generation model for mitigation strategies and response steps
 try:
     generator = pipeline("text-generation", model="gpt2")
     logger.info("Successfully initialized Hugging Face text generation model (gpt2)")
@@ -52,9 +50,42 @@ except Exception as e:
     logger.error(f"Failed to initialize text generation model: {str(e)}")
     generator = None
 
+risk_scorer = RiskScorer()
 risk_prioritizer = RiskPrioritizer()
 incident_responder = IncidentResponder()
 lock = threading.Lock()
+
+# Use the correct pgAdmin 4 pg_dump path
+PG_DUMP_PATH = "/Applications/pgAdmin 4.app/Contents/SharedSupport/pg_dump"
+
+def backup_database():
+    backup_path = f"backups/shopsmart_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.sql"
+    os.makedirs('backups', exist_ok=True)
+    try:
+        subprocess.run([PG_DUMP_PATH, "-U", "shopsmart", "-d", "shopsmart", "-f", backup_path], check=True, env={"PGPASSWORD": "123456789"})
+        logger.info(f"Database backed up to {backup_path}")
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Backup failed: {str(e)}")
+        raise  # Re-raise to halt report generation if backup fails
+
+def generate_periodic_reports():
+    logger.info("Starting periodic report generation thread")
+    report_generator = ThreatReportGenerator()
+    while True:
+        try:
+            logger.debug("Beginning report generation cycle")
+            with app.app_context():
+                backup_database()
+                report_path = report_generator.generate_pdf()
+                logger.info(f"Periodic report generated: {report_path}")
+        except Exception as e:
+            logger.error(f"Periodic report generation failed: {str(e)}", exc_info=True)
+        logger.debug("Sleeping for 1 minute (testing)")
+        time.sleep(3600)  # 1 minute for testing; revert to 3600 for hourly
+
+# Start periodic reporting
+logger.info("Launching report generation thread")
+threading.Thread(target=generate_periodic_reports, daemon=True).start()
 
 with app.app_context():
     db.create_all()
@@ -73,6 +104,7 @@ def register():
     try:
         db.session.add(new_user)
         db.session.commit()
+        logger.info(f"User registered: {username}")
         return jsonify({"message": "User registered successfully"}), 201
     except Exception as e:
         db.session.rollback()
@@ -88,8 +120,10 @@ def login():
         return jsonify({"error": "Username and password are required"}), 400
     user = User.query.filter_by(username=username).first()
     if user and check_password_hash(user.password_hash, password):
+        logger.info(f"User logged in: {username}")
         return jsonify({"message": "Login successful", "user_id": user.id, "username": user.username}), 200
     else:
+        logger.warning(f"Failed login attempt for {username}")
         return jsonify({"error": "Invalid username or password"}), 401
 
 @app.route('/api/user/<int:user_id>', methods=['GET'])
@@ -98,6 +132,7 @@ def get_user_details(user_id):
     if user:
         return jsonify({"id": user.id, "username": user.username}), 200
     else:
+        logger.warning(f"User not found: {user_id}")
         return jsonify({"error": "User not found"}), 404
 
 @app.route('/api/assets', methods=['GET'])
@@ -105,12 +140,7 @@ def get_assets():
     try:
         assets = Asset.query.all()
         assets_list = [
-            {
-                "id": asset.id,
-                "name": asset.name,
-                "type": asset.type,
-                "identifier": asset.identifier
-            }
+            {"id": asset.id, "name": asset.name, "type": asset.type, "identifier": asset.identifier}
             for asset in assets
         ]
         logger.info(f"Fetched {len(assets_list)} assets")
@@ -123,10 +153,10 @@ def get_assets():
 def get_threat_logs():
     with lock:
         try:
-            start_time = time()
+            start_time = time.time()
             query = request.args.get('query', 'localhost:5002')
             osint_data = get_threat_data(query)
-            logger.info(f"get_threat_data for query '{query}' took {time() - start_time:.2f} seconds")
+            logger.info(f"get_threat_data for query '{query}' took {time.time() - start_time:.2f} seconds")
             if not isinstance(osint_data, dict) or 'events' not in osint_data:
                 logger.error(f"Invalid OSINT data structure: {osint_data}")
                 raise ValueError("Invalid OSINT data structure received")
@@ -140,20 +170,33 @@ def get_threat_logs():
                         "risk_score": 75
                     }
                 ]
-            threat_descriptions = [event.get("description", "Unknown") for event in events]
-            risk_scores = analyze_risk(threat_descriptions)
             tva_mappings = [
                 {'threat_name': tva.threat_name, 'likelihood': tva.likelihood, 'impact': tva.impact}
                 for tva in TvaMapping.query.all()
             ]
-            processed_threats = set()
+            threats_for_scoring = [
+                {
+                    "description": event.get("description", "Unknown"),
+                    "likelihood": next((tva["likelihood"] for tva in tva_mappings if tva["threat_name"] == event.get("threat_type", "Other")), 3),
+                    "impact": next((tva["impact"] for tva in tva_mappings if tva["threat_name"] == event.get("threat_type", "Other")), 3),
+                    "created_at": datetime.utcnow()
+                }
+                for event in events
+            ]
+            risk_scores = risk_scorer.analyze_risk(threats_for_scoring)
+
+            # Bulk fetch existing threats
+            descriptions = [event.get('description', 'Unknown') for event in events]
+            existing_threats = {t.description: t for t in ThreatData.query.filter(ThreatData.description.in_(descriptions)).all()}
             threats_with_metadata = []
+            processed_threats = set()
+
             for event, risk_score in zip(events, risk_scores):
                 desc = event.get('description', 'Unknown')
                 if desc in processed_threats:
                     continue
                 processed_threats.add(desc)
-                threat_entry = ThreatData.query.filter_by(description=desc).order_by(ThreatData.created_at.desc()).first()
+                threat_entry = existing_threats.get(desc)
                 if not threat_entry:
                     threat_entry = ThreatData(
                         description=desc,
@@ -185,6 +228,7 @@ def get_threat_logs():
                     'cba': cba_info
                 })
             db.session.commit()
+            logger.info(f"Returning {len(threat_logs)} threat logs for query '{query}'")
             return jsonify(threat_logs), 200
         except Exception as e:
             logger.error(f"Failed to fetch threat logs: {str(e)}")
@@ -212,14 +256,22 @@ def get_risk_scores():
     try:
         query = request.args.get('query', 'localhost:5002')
         osint_data = get_threat_data(query)
-        threat_descriptions = [event.get("description", "Unknown") for event in osint_data.get("events", [])]
-        risk_scores = analyze_risk(threat_descriptions)
-        return jsonify(risk_scores if risk_scores else [50, 75, 90])
+        threats_for_scoring = [
+            {
+                "description": event.get("description", "Unknown"),
+                "likelihood": 3,
+                "impact": 3,
+                "created_at": datetime.utcnow()
+            }
+            for event in osint_data.get("events", [])
+        ]
+        risk_scores = risk_scorer.analyze_risk(threats_for_scoring)
+        logger.info(f"Risk scores for query '{query}': {risk_scores}")
+        return jsonify(risk_scores), 200
     except Exception as e:
         logger.error(f"Failed to fetch risk scores: {str(e)}")
         return jsonify([50, 75, 90]), 200
 
-# Combined endpoint with previous and current functionality
 @app.route('/api/real-time-alerts', methods=['GET'])
 def get_real_time_alerts():
     try:
@@ -231,49 +283,33 @@ def get_real_time_alerts():
         alerts = ThreatData.query.order_by(ThreatData.created_at.desc()).limit(10).all()
         logger.info(f"Fetched {len(alerts)} alerts from threat_data table")
 
-        # Relaxed filtering: If query doesn't match, return all alerts
         filtered_alerts = [
             alert for alert in alerts
             if query.lower() in alert.description.lower()
-        ]
+        ] if query else alerts
         if not filtered_alerts:
             logger.warning(f"No alerts matched query '{query}', returning all alerts")
             filtered_alerts = alerts
 
-        logger.info(f"Filtered {len(filtered_alerts)} alerts after applying query filter")
-
         alerts_list = []
         for alert in filtered_alerts:
             try:
-                # Existing IncidentResponder response plan
                 threat_info = {
                     "description": alert.description,
                     "risk_score": alert.risk_score,
                     "threat_type": alert.threat_type
                 }
                 base_response_plan = incident_responder.generate_response_plan(threat_info)
-
-                # Text generation for mitigation strategies and response steps
                 mitigation_strategies = base_response_plan["mitigation_strategies"]
                 response_steps = base_response_plan["response_steps"]
                 if generator:
-                    mitigation_prompt = (
-                        f"Generate mitigation strategies for a cybersecurity threat: "
-                        f"Description: {alert.description}, Threat Type: {alert.threat_type}, Risk Score: {alert.risk_score}. "
-                        f"Provide a list of strategies."
-                    )
+                    mitigation_prompt = f"Generate mitigation strategies for: {alert.description}, Type: {alert.threat_type}, Risk: {alert.risk_score}."
                     mitigation_response = generator(mitigation_prompt, max_length=100, num_return_sequences=1)[0]['generated_text']
                     mitigation_strategies = [s.strip() for s in mitigation_response.split('\n') if s.strip()][:3]
-
-                    response_prompt = (
-                        f"Generate response steps for a cybersecurity threat: "
-                        f"Description: {alert.description}, Threat Type: {alert.threat_type}, Risk Score: {alert.risk_score}. "
-                        f"Provide a list of steps."
-                    )
+                    response_prompt = f"Generate response steps for: {alert.description}, Type: {alert.threat_type}, Risk: {alert.risk_score}."
                     response_response = generator(response_prompt, max_length=100, num_return_sequences=1)[0]['generated_text']
                     response_steps = [s.strip() for s in response_response.split('\n') if s.strip()][:3]
 
-                # LLM severity analysis
                 llm_insights = {}
                 if llm_classifier:
                     labels = ["Low Severity", "Medium Severity", "High Severity"]
@@ -290,7 +326,6 @@ def get_real_time_alerts():
                 else:
                     llm_insights = {"severity": "Unknown", "confidence": 0, "suggested_action": "Manual review required"}
 
-                # Construct combined response plan
                 response_plan = {
                     "threat_type": alert.threat_type,
                     "description": alert.description,
@@ -309,7 +344,7 @@ def get_real_time_alerts():
                 response_plan = {
                     "threat_type": alert.threat_type,
                     "description": alert.description,
-                    "priority": "Medium",  # Default priority on error
+                    "priority": "Medium",
                     "mitigation_strategies": ["Unable to generate strategies due to error"],
                     "response_steps": ["Unable to generate steps due to error"]
                 }
@@ -325,7 +360,24 @@ def get_real_time_alerts():
         db.session.rollback()
         return jsonify([]), 200
 
-# Helper function for LLM suggested actions
+@app.route('/api/generate-report', methods=['GET'])
+def generate_report():
+    backup_database()
+    generator = ThreatReportGenerator()
+    format = request.args.get('format', 'pdf')
+    try:
+        if format == 'pdf':
+            path = generator.generate_pdf()
+        elif format == 'csv':
+            path = generator.generate_csv()
+        else:
+            return jsonify({"error": "Invalid format"}), 400
+        logger.info(f"Manual report generated: {path}")
+        return jsonify({"message": "Report generated", "path": path}), 200
+    except Exception as e:
+        logger.error(f"Failed to generate report: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
 def suggest_action(severity):
     actions = {
         "Low Severity": "Monitor the situation and log for future reference.",
