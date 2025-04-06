@@ -1,16 +1,17 @@
 # src/api/risk_analysis.py
 from transformers import pipeline
 import logging
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('risk_analysis.log'),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger('risk_analysis')
+from custom_logging import setup_logger
+logger = setup_logger('risk_analysis')
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#     handlers=[
+#         logging.FileHandler('risk_analysis.log'),
+#         logging.StreamHandler()
+#     ]
+# )
+# logger = logging.getLogger('risk_analysis')
 
 # Initialize the Hugging Face LLM for sentiment analysis
 try:
