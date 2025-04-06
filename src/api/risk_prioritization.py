@@ -1,17 +1,19 @@
 # src/api/risk_prioritization.py
-import logging
+from custom_logging import setup_logger
+logger = setup_logger('risk_prioritization')
 from datetime import datetime
+import logging
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('risk_prioritization.log'),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger('risk_prioritization')
+# # Configure logging
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#     handlers=[
+#         logging.FileHandler('risk_prioritization.log'),
+#         logging.StreamHandler()
+#     ]
+# )
+# logger = logging.getLogger('risk_prioritization')
 
 class RiskPrioritizer:
     def __init__(self, weights=None):
