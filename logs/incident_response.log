@@ -1,0 +1,218 @@
+2025-04-01 02:27:23,536 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:27:35,938 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:27:36,073 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:27:41,875 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:27:43,262 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:27:45,033 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:27:50,622 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:27:55,647 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:30:14,888 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:30:25,015 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:30:25,924 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 02:30:31,020 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:34:15,824 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 02:34:25,974 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 02:34:26,649 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:34:31,734 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:34:36,557 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:37:11,992 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 02:37:22,919 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 02:37:23,013 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 02:37:28,119 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:37:33,069 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:37:36,161 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:38:35,804 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 02:38:43,935 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-01 02:38:48,260 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 02:38:52,989 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:38:57,920 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:39:02,829 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 02:40:04,650 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-01 02:40:16,864 - incident_response - INFO - Logged incident: Authentication Service
+2025-04-01 02:40:17,807 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 02:40:23,129 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 02:40:28,133 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 02:40:32,850 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 02:40:37,536 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 03:51:45,077 - incident_response - INFO - Logged incident: Authentication Service
+2025-04-01 03:52:00,613 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-01 03:52:01,245 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 03:52:05,067 - incident_response - INFO - Logged incident: Authentication Service
+2025-04-01 03:52:08,751 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 03:52:10,603 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 03:52:14,649 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-01 03:52:17,641 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 03:52:22,919 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 03:52:26,099 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 03:52:31,145 - incident_response - INFO - Logged incident: Development Workstations
+2025-04-01 03:52:34,288 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 03:52:40,055 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 03:52:43,250 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 03:52:48,208 - incident_response - INFO - Logged incident: Database Server
+2025-04-01 03:52:54,076 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:10:04,331 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:10:13,017 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:11:35,472 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:11:49,310 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:12:14,979 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:12:26,502 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:12:27,585 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:19:37,905 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:19:52,844 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:19:58,610 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:19:58,611 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:20:04,141 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:20:11,217 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:22:36,709 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:22:52,978 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:22:56,723 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:22:56,723 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:23:04,473 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:23:05,600 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:23:45,018 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:24:03,849 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:24:08,420 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:24:33,995 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:24:49,410 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:24:53,197 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:25:01,787 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:32:13,784 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:32:33,425 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:32:37,479 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:32:46,282 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:32:49,397 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:32:52,981 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:33:05,644 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:33:10,648 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:46:57,362 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:46:57,392 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:46:57,396 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:47:25,527 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:47:25,528 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:47:25,528 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:47:44,468 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:47:44,523 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:47:44,570 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:47:44,606 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:48:06,625 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:48:17,635 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:54:07,516 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:54:22,868 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 04:54:22,896 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:54:30,049 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 04:59:11,035 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 04:59:27,968 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 04:59:32,916 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 04:59:41,150 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 04:59:50,072 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 05:14:51,492 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 05:15:04,504 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 05:15:04,637 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 05:15:10,099 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 05:15:11,458 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 05:15:14,038 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 05:15:21,034 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 05:15:25,997 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 05:15:34,812 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 05:15:40,176 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 08:34:01,695 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 08:34:15,413 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 08:34:17,608 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 08:34:21,550 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 08:34:22,948 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 08:34:25,111 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 08:34:32,115 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 08:34:36,384 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 08:34:51,259 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 08:35:00,187 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 08:55:37,262 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 08:55:49,635 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 08:55:49,902 - incident_response - INFO - Logged incident: Financial Transaction Logs
+2025-04-01 08:55:54,393 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 08:55:58,872 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 08:57:52,655 - incident_response - INFO - Logged incident: Financial Transaction Logs
+2025-04-01 08:58:02,070 - incident_response - INFO - Logged incident: Financial Transaction Logs
+2025-04-01 08:58:02,201 - incident_response - INFO - Logged incident: Payment Processing API
+2025-04-01 08:58:07,088 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 08:58:12,010 - incident_response - INFO - Logged incident: Backup and Recovery
+2025-04-01 08:58:16,589 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 11:08:24,339 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 11:08:31,794 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 11:08:42,072 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 11:08:50,017 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 11:09:22,447 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 11:09:34,568 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 11:09:37,343 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 11:10:27,466 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 11:10:40,795 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 11:10:41,058 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 12:32:18,501 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 12:32:32,885 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 12:32:35,476 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 12:32:38,215 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 12:32:43,459 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 12:32:46,542 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 12:32:49,401 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 12:32:58,022 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-01 12:33:02,319 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 12:33:09,605 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-01 12:33:10,873 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-01 12:33:14,389 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-02 11:08:30,994 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-02 11:08:45,975 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-02 11:08:53,128 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-02 11:08:54,135 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-02 11:08:56,359 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-02 11:09:01,345 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-02 11:09:03,686 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-02 11:09:12,457 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-02 11:09:23,983 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-02 11:09:35,056 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-02 11:09:36,911 - incident_response - INFO - Logged incident: System Administrators
+2025-04-02 11:09:40,202 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 12:55:01,857 - incident_response - INFO - Logged incident: System Administrators
+2025-04-04 12:55:15,163 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 12:55:15,723 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-04 12:55:21,428 - incident_response - INFO - Logged incident: System Administrators
+2025-04-04 12:55:22,926 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-04 12:55:23,584 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 12:55:30,761 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-04 12:55:31,700 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 12:55:38,887 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-04 12:55:44,408 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 12:56:50,367 - incident_response - INFO - Logged incident: System Administrators
+2025-04-04 12:56:59,276 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-04 12:57:02,869 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-04 12:57:08,463 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-04 12:57:12,622 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 22:06:14,420 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-04 22:06:14,421 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-04 22:06:29,146 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 22:06:34,336 - incident_response - INFO - Logged incident: System Administrators
+2025-04-04 22:06:34,336 - incident_response - INFO - Logged incident: System Administrators
+2025-04-04 22:06:42,729 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 22:06:47,197 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-04 22:06:47,198 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-04 22:06:54,553 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-04 22:06:54,554 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-04 22:06:59,592 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 22:07:02,753 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-04 22:07:37,074 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-04 22:07:46,572 - incident_response - INFO - Logged incident: System Administrators
+2025-04-04 22:07:48,623 - incident_response - INFO - Logged incident: Audit Logs
+2025-04-04 22:07:52,273 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-04 22:08:02,043 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-04 22:08:07,321 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-05 00:05:13,430 - incident_response - INFO - Logged incident: Audit Logs
+2025-04-05 00:05:13,431 - incident_response - INFO - Logged incident: Audit Logs
+2025-04-05 00:05:23,214 - incident_response - INFO - Logged incident: SpiderFoot execution failed for query '$': No output available
+2025-04-05 00:05:27,626 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-05 00:05:28,210 - incident_response - INFO - Logged incident: Primary Application Server
+2025-04-05 00:05:39,752 - incident_response - INFO - Logged incident: System Administrators
+2025-04-05 00:05:39,753 - incident_response - INFO - Logged incident: System Administrators
+2025-04-05 00:05:51,873 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-05 00:05:51,874 - incident_response - INFO - Logged incident: PostgreSQL Database
+2025-04-05 00:06:07,584 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-05 00:06:07,585 - incident_response - INFO - Logged incident: Access Control Management
+2025-04-05 00:06:18,923 - incident_response - INFO - Logged incident: localhost:5002
+2025-04-05 00:06:29,613 - incident_response - INFO - Logged incident: localhost:5002
