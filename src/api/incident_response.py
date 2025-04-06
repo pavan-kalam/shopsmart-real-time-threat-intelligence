@@ -2,11 +2,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from api.models import db, IncidentLog
-import logging
+from custom_logging import setup_logger
+logger = setup_logger('incident_response')
 from datetime import datetime
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('incident_response')
+import logging
+# logging.basicConfig(level=logging.INFO)
+# logger = logging.getLogger('incident_response')
 
 DATABASE_URL = 'postgresql://shopsmart:123456789@localhost:5432/shopsmart'
 
