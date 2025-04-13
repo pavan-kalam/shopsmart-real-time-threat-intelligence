@@ -1,0 +1,228 @@
+openapi: 3.0.3
+info:
+  title: real-time-threat-intelligence API
+  description: API for the real-time-threat-intelligence threat intelligence platform, enabling integration with external systems for user management, asset monitoring, and threat data retrieval.
+  version: 1.0.0
+servers:
+  - url: http://0.0.0.0:5002/api
+    description: Local development server
+paths:
+  /register:
+    post:
+      summary: Register a new user
+      description: Creates a new user account for accessing the real-time-threat-intelligence dashboard.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "analyst1"
+                password:
+                  type: string
+                  example: "SecurePass123"
+              required:
+                - username
+                - password
+      responses:
+        '201':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User registered successfully"
+        '400':
+          description: Invalid input or username exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Username already exists"
+  /login:
+    post:
+      summary: Log in a user
+      description: Authenticates a user and returns user details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "analyst1"
+                password:
+                  type: string
+                  example: "SecurePass123"
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login successful"
+                  user_id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: "analyst1"
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid username or password"
+  /user/{user_id}:
+    get:
+      summary: Get user details
+      description: Retrieves details for a specific user by ID.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: User details retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: "analyst1"
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "User not found"
+  /assets:
+    get:
+      summary: Retrieve all assets
+      description: Returns a list of monitored assets (e.g., IPs, domains).
+      responses:
+        '200':
+          description: List of assets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: "Web Server"
+                    type:
+                      type: string
+                      example: "IP"
+                    identifier:
+                      type: string
+                      example: "192.168.1.100"
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Internal server error"
+  /spiderfoot/threat-logs:
+    get:
+      summary: Retrieve threat logs
+      description: Fetches threat logs from SpiderFoot with risk scores and mitigation suggestions.
+      parameters:
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+            example: "localhost:5002"
+          description: Target for SpiderFoot scan (default: localhost:5002)
+      responses:
+        '200':
+          description: List of threat logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    description:
+                      type: string
+                      example: "Malicious IP 192.168.1.1 detected"
+                    threat_type:
+                      type: string
+                      example: "IP"
+                    risk_score:
+                      type: integer
+                      example: 85
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: "2025-04-12T10:00:00Z"
+                    mitigation:
+                      type: object
+                      properties:
+                        action:
+                          type: string
+                          example: "Block IP"
+                        cba:
+                          type: string
+                          example: "Cost: Low, Benefit: High"
+                        sandbox_path:
+                          type: string
+                          nullable: true
+                          example: "sandbox/threat_20250412_100000"
+        '500':
+          description: Error fetching logs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid OSINT data structure received"
+components:
+  schemas: {}
