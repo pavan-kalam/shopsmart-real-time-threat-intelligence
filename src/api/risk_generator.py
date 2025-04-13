@@ -1,10 +1,11 @@
-# risk_generator.py
+# src/api/risk_generator.py
 import os
 import csv
 from fpdf import FPDF
 from datetime import datetime
 from api.models import db, ThreatData, IncidentLog, AlertLog
-from custom_logging import setup_logger
+from custom_logging import setup_logger  # Updated import to match project
+
 logger = setup_logger('risk_generator')
 
 class ThreatReportGenerator:
@@ -12,7 +13,10 @@ class ThreatReportGenerator:
         self.output_dir = output_dir
         os.makedirs(output_dir, exist_ok=True)
 
-    def generate_pdf(self, filename="threat_report.pdf"):
+    def generate_pdf(self, filename=None):
+        """Generate a PDF report."""
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = filename or f"threat_report_{timestamp}.pdf"
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Arial", size=12)
@@ -38,7 +42,10 @@ class ThreatReportGenerator:
             logger.error(f"Failed to generate PDF: {str(e)}")
             raise
 
-    def generate_csv(self, filename="threat_report.csv"):
+    def generate_csv(self, filename=None):
+        """Generate a CSV report."""
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        filename = filename or f"threat_report_{timestamp}.csv"
         output_path = os.path.join(self.output_dir, filename)
         with open(output_path, 'w', newline='') as csvfile:
             fieldnames = ['type', 'description', 'risk_score', 'created_at', 'category']
@@ -77,10 +84,19 @@ class ThreatReportGenerator:
         logger.info(f"CSV report generated at: {output_path}")
         return output_path
 
-# Integration in app.py
+    def generate_reports(self):
+        """Generate both PDF and CSV reports."""
+        try:
+            pdf_path = self.generate_pdf()
+            csv_path = self.generate_csv()
+            return {"pdf": pdf_path, "csv": csv_path}
+        except Exception as e:
+            logger.error(f"Failed to generate reports: {str(e)}")
+            raise
+
 if __name__ == "__main__":
     from app import app, db
     with app.app_context():
         generator = ThreatReportGenerator()
-        generator.generate_pdf()
-        generator.generate_csv()
+        reports = generator.generate_reports()
+        logger.info(f"Generated reports: {reports}")
