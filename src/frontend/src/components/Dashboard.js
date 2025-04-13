@@ -73,7 +73,7 @@ function Dashboard() {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         }),
-        fetch(`http://localhost:5002/api/risk-scores?query=${encodeURIComponent(selectedAsset)}`, {  // Modified to pass selectedAsset
+        fetch(`http://localhost:5002/api/risk-scores?query=${encodeURIComponent(selectedAsset)}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         }),
@@ -152,6 +152,30 @@ function Dashboard() {
     });
   };
 
+  const downloadReport = async (format) => {
+    try {
+      const response = await fetch(`http://localhost:5002/api/generate-report?format=${format}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) throw new Error(`Failed to generate ${format.toUpperCase()} report`);
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = response.headers.get('Content-Disposition')?.split('filename=')[1] || `threat_report.${format}`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+      console.log(`${format.toUpperCase()} report downloaded successfully`);
+    } catch (error) {
+      console.error(`Error downloading ${format} report:`, error);
+      setError(`Failed to download ${format.toUpperCase()} report: ${error.message}`);
+    }
+  };
+
   useEffect(() => {
     fetchAssets();
     fetchData();
@@ -223,6 +247,12 @@ function Dashboard() {
             ))}
           </select>
           <button onClick={fetchData}>Refresh Data</button>
+          <button onClick={() => downloadReport('pdf')} style={{ marginLeft: '10px' }}>
+            Download PDF Report
+          </button>
+          <button onClick={() => downloadReport('csv')} style={{ marginLeft: '10px' }}>
+            Download CSV Report
+          </button>
         </div>
         {loading ? (
           <div className="loading-spinner">Loading dashboard data...</div>
@@ -457,7 +487,7 @@ function Dashboard() {
                               </ol>
                             </div>
                           )}
-                          {item?.llm_insights && (  // Added to display LLM insights
+                          {item?.llm_insights && (
                             <div className="llm-insights">
                               <h4>LLM Analysis</h4>
                               <p><strong>Severity:</strong> {item.llm_insights.severity} (Confidence: {item.llm_insights.confidence})</p>
