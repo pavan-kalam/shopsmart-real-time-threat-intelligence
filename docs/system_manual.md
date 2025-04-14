@@ -1,13 +1,13 @@
 # System Manual
-## ThreatSync: Automated Threat Intelligence System
+## REAL-TIME-THREAT-INTELLIGENCE: Automated Threat Intelligence System
 
-This document provides a comprehensive guide for installing, configuring, and using the ThreatSync system, a Flask-based threat intelligence platform with automated mitigation capabilities.
+This document provides a comprehensive guide for installing, configuring, and using the Real-time-threat-intelligence-system, a Flask-based threat intelligence platform with automated mitigation capabilities.
 
 ---
 
 ## 1. System Overview
 
-ThreatSync is a cybersecurity platform designed to collect, analyze, and mitigate threats using OSINT (via SpiderFoot), AI-driven anomaly detection, and automated blue teaming defenses. It includes a Flask backend, PostgreSQL database, React frontend, and background processes for real-time threat monitoring.
+Real-time-threat-intelligence-system is a cybersecurity platform designed to collect, analyze, and mitigate threats using OSINT (via SpiderFoot), AI-driven anomaly detection, and automated blue teaming defenses. It includes a Flask backend, PostgreSQL database, React frontend, and background processes for real-time threat monitoring.
 
 Key features:
 - Real-time threat data collection and risk scoring.
