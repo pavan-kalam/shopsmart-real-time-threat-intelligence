@@ -1,0 +1,120 @@
+# Nmap 7.95 scan initiated Sat Apr 19 13:46:01 2025 as: nmap -A -T4 -oN security_scan_results.txt localhost
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000050s latency).
+Other addresses for localhost (not scanned): ::1
+Not shown: 995 closed tcp ports (conn-refused)
+PORT     STATE SERVICE    VERSION
+5000/tcp open  rtsp
+|_rtsp-methods: ERROR: Script execution failed (use -d to debug)
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435988965
+|   GetRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435983919
+|   HTTPOptions: 
+|     HTTP/1.1 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435988961
+|   RTSPRequest: 
+|     RTSP/1.0 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435983960
+|   SIPOptions: 
+|     RTSP/1.0 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     CSeq: 42 OPTIONS
+|     X-Apple-ProcessingTime: 0
+|_    X-Apple-RequestReceivedTimestamp: 435988967
+5001/tcp open  http       CherryPy wsgiserver
+|_http-title: SpiderFoot v4.0.0
+|_http-server-header: server
+5002/tcp open  http       Werkzeug httpd 3.1.3 (Python 3.11.7)
+|_http-server-header: Werkzeug/3.1.3 Python/3.11.7
+|_http-title: 404 Not Found
+5432/tcp open  postgresql PostgreSQL DB 9.6.0 or later
+7000/tcp open  rtsp
+|_irc-info: Unable to open connection
+|_rtsp-methods: ERROR: Script execution failed (use -d to debug)
+| fingerprint-strings: 
+|   FourOhFourRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435988944
+|   GetRequest: 
+|     HTTP/1.1 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435988915
+|   HTTPOptions: 
+|     HTTP/1.1 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 0
+|     X-Apple-RequestReceivedTimestamp: 435988940
+|   RTSPRequest: 
+|     RTSP/1.0 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     X-Apple-ProcessingTime: 5
+|     X-Apple-RequestReceivedTimestamp: 435983912
+|   SIPOptions: 
+|     RTSP/1.0 403 Forbidden
+|     Content-Length: 0
+|     Server: AirTunes/845.5.1
+|     CSeq: 42 OPTIONS
+|     X-Apple-ProcessingTime: 0
+|_    X-Apple-RequestReceivedTimestamp: 435988947
+2 services unrecognized despite returning data. If you know the service/version, please submit the following fingerprints at https://nmap.org/cgi-bin/submit.cgi?new-service :
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port5000-TCP:V=7.95%I=7%D=4/19%Time=6803EF6F%P=arm-apple-darwin24.2.0%r
+SF:(GetRequest,8F,"HTTP/1\.1\x20403\x20Forbidden\r\nContent-Length:\x200\r
+SF:\nServer:\x20AirTunes/845\.5\.1\r\nX-Apple-ProcessingTime:\x200\r\nX-Ap
+SF:ple-RequestReceivedTimestamp:\x20435983919\r\n\r\n")%r(RTSPRequest,8F,"
+SF:RTSP/1\.0\x20403\x20Forbidden\r\nContent-Length:\x200\r\nServer:\x20Air
+SF:Tunes/845\.5\.1\r\nX-Apple-ProcessingTime:\x200\r\nX-Apple-RequestRecei
+SF:vedTimestamp:\x20435983960\r\n\r\n")%r(HTTPOptions,8F,"HTTP/1\.1\x20403
+SF:\x20Forbidden\r\nContent-Length:\x200\r\nServer:\x20AirTunes/845\.5\.1\
+SF:r\nX-Apple-ProcessingTime:\x200\r\nX-Apple-RequestReceivedTimestamp:\x2
+SF:0435988961\r\n\r\n")%r(FourOhFourRequest,8F,"HTTP/1\.1\x20403\x20Forbid
+SF:den\r\nContent-Length:\x200\r\nServer:\x20AirTunes/845\.5\.1\r\nX-Apple
+SF:-ProcessingTime:\x200\r\nX-Apple-RequestReceivedTimestamp:\x20435988965
+SF:\r\n\r\n")%r(SIPOptions,A1,"RTSP/1\.0\x20403\x20Forbidden\r\nContent-Le
+SF:ngth:\x200\r\nServer:\x20AirTunes/845\.5\.1\r\nCSeq:\x2042\x20OPTIONS\r
+SF:\nX-Apple-ProcessingTime:\x200\r\nX-Apple-RequestReceivedTimestamp:\x20
+SF:435988967\r\n\r\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port7000-TCP:V=7.95%I=7%D=4/19%Time=6803EF74%P=arm-apple-darwin24.2.0%r
+SF:(RTSPRequest,8F,"RTSP/1\.0\x20403\x20Forbidden\r\nContent-Length:\x200\
+SF:r\nServer:\x20AirTunes/845\.5\.1\r\nX-Apple-ProcessingTime:\x205\r\nX-A
+SF:pple-RequestReceivedTimestamp:\x20435983912\r\n\r\n")%r(GetRequest,8F,"
+SF:HTTP/1\.1\x20403\x20Forbidden\r\nContent-Length:\x200\r\nServer:\x20Air
+SF:Tunes/845\.5\.1\r\nX-Apple-ProcessingTime:\x200\r\nX-Apple-RequestRecei
+SF:vedTimestamp:\x20435988915\r\n\r\n")%r(HTTPOptions,8F,"HTTP/1\.1\x20403
+SF:\x20Forbidden\r\nContent-Length:\x200\r\nServer:\x20AirTunes/845\.5\.1\
+SF:r\nX-Apple-ProcessingTime:\x200\r\nX-Apple-RequestReceivedTimestamp:\x2
+SF:0435988940\r\n\r\n")%r(FourOhFourRequest,8F,"HTTP/1\.1\x20403\x20Forbid
+SF:den\r\nContent-Length:\x200\r\nServer:\x20AirTunes/845\.5\.1\r\nX-Apple
+SF:-ProcessingTime:\x200\r\nX-Apple-RequestReceivedTimestamp:\x20435988944
+SF:\r\n\r\n")%r(SIPOptions,A1,"RTSP/1\.0\x20403\x20Forbidden\r\nContent-Le
+SF:ngth:\x200\r\nServer:\x20AirTunes/845\.5\.1\r\nCSeq:\x2042\x20OPTIONS\r
+SF:\nX-Apple-ProcessingTime:\x200\r\nX-Apple-RequestReceivedTimestamp:\x20
+SF:435988947\r\n\r\n");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Apr 19 13:46:28 2025 -- 1 IP address (1 host up) scanned in 27.15 seconds
