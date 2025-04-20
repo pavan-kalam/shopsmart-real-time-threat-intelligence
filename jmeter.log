@@ -1,0 +1,360 @@
+2025-04-19 16:39:31,927 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2025-04-19 16:39:31,968 INFO o.a.j.JMeter: Loading user properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/user.properties
+2025-04-19 16:39:31,968 INFO o.a.j.JMeter: Loading system properties from: /opt/homebrew/Cellar/jmeter/5.6.3/libexec/bin/system.properties
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: Version 5.6.3
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: java.version=21.0.6
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: os.name=Mac OS X
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: os.arch=aarch64
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: os.version=15.3
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: file.encoding=UTF-8
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: java.awt.headless=true
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: Max memory     =1073741824
+2025-04-19 16:39:31,974 INFO o.a.j.JMeter: Available Processors =8
+2025-04-19 16:39:31,983 INFO o.a.j.JMeter: Default Locale=English (EN)
+2025-04-19 16:39:31,984 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2025-04-19 16:39:31,984 INFO o.a.j.JMeter: JMeterHome=/opt/homebrew/Cellar/jmeter/5.6.3/libexec
+2025-04-19 16:39:31,984 INFO o.a.j.JMeter: user.dir  =/Users/pavankalam/Desktop/project updates1/project working/real-time-threat-intelligence
+2025-04-19 16:39:31,984 INFO o.a.j.JMeter: PWD       =/Users/pavankalam/Desktop/project updates1/project working/real-time-threat-intelligence
+2025-04-19 16:39:31,987 INFO o.a.j.JMeter: IP: 127.0.0.1 Name: PAVANs-MacBook-Pro.local FullName: localhost
+2025-04-19 16:39:32,010 INFO o.a.j.s.FileServer: Default base='/Users/pavankalam/Desktop/project updates1/project working/real-time-threat-intelligence'
+2025-04-19 16:39:32,013 INFO o.a.j.s.FileServer: Set new base='/Users/pavankalam/Desktop/project updates1/project working/real-time-threat-intelligence'
+2025-04-19 16:39:32,170 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2025-04-19 16:39:32,225 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2025-04-19 16:39:32,227 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2025-04-19 16:39:32,229 INFO o.a.j.s.SaveService: Loading file: load_test.jmx
+2025-04-19 16:39:32,340 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-19 16:39:32,340 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-19 16:39:32,340 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-19 16:39:32,340 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2025-04-19 16:39:32,340 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2025-04-19 16:39:32,340 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2025-04-19 16:39:32,367 INFO o.a.j.JMeter: Creating summariser <summary>
+2025-04-19 16:39:32,384 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2025-04-19 16:39:32,384 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-04-19 16:39:32,384 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2025-04-19 16:39:32,392 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2025-04-19 16:39:32,392 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2025-04-19 16:39:32,454 INFO o.a.j.r.ClassFinder: Will scan jar /opt/homebrew/Cellar/jmeter/5.6.3/libexec/lib/ext/jmeter-plugins-manager-1.9.jar with filter ExtendsClassFilter [parents=[interface org.apache.jmeter.functions.Function], inner=false, contains=null, notContains=null]. Consider exposing JMeter plugins via META-INF/services, and add JMeter-Skip-Class-Scanning=true manifest attribute so JMeter can skip classfile scanning
+2025-04-19 16:39:32,549 INFO o.a.j.JMeter: Running test (1745098772549)
+2025-04-19 16:39:32,562 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : 100 Concurrent Users
+2025-04-19 16:39:32,562 INFO o.a.j.e.StandardJMeterEngine: Starting 100 threads for group 100 Concurrent Users.
+2025-04-19 16:39:32,562 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2025-04-19 16:39:32,562 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=100 ramp-up=10 delayedStart=false
+2025-04-19 16:39:32,571 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-1
+2025-04-19 16:39:32,583 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2025-04-19 16:39:32,583 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2025-04-19 16:39:32,597 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = PAVANs-MacBook-Pro.local
+2025-04-19 16:39:32,602 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2025-04-19 16:39:32,603 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2025-04-19 16:39:32,603 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2025-04-19 16:39:32,603 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2025-04-19 16:39:32,603 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2025-04-19 16:39:32,672 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-2
+2025-04-19 16:39:32,772 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-3
+2025-04-19 16:39:32,805 INFO o.a.j.r.Summariser: summary +      1 in 00:00:00 =    3.9/s Avg:   160 Min:   160 Max:   160 Err:     1 (100.00%) Active: 3 Started: 3 Finished: 0
+2025-04-19 16:39:32,870 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-4
+2025-04-19 16:39:32,972 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-5
+2025-04-19 16:39:33,071 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-6
+2025-04-19 16:39:33,171 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-7
+2025-04-19 16:39:33,269 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-8
+2025-04-19 16:39:33,371 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-9
+2025-04-19 16:39:33,466 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-10
+2025-04-19 16:39:33,570 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-11
+2025-04-19 16:39:33,669 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-12
+2025-04-19 16:39:33,770 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-13
+2025-04-19 16:39:33,870 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-14
+2025-04-19 16:39:33,970 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-15
+2025-04-19 16:39:34,064 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-16
+2025-04-19 16:39:34,165 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-17
+2025-04-19 16:39:34,269 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-18
+2025-04-19 16:39:34,364 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-19
+2025-04-19 16:39:34,474 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-20
+2025-04-19 16:39:34,568 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-21
+2025-04-19 16:39:34,664 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-22
+2025-04-19 16:39:34,765 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-23
+2025-04-19 16:39:34,868 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-24
+2025-04-19 16:39:34,968 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-25
+2025-04-19 16:39:35,067 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-26
+2025-04-19 16:39:35,168 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-27
+2025-04-19 16:39:35,267 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-28
+2025-04-19 16:39:35,367 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-29
+2025-04-19 16:39:35,467 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-30
+2025-04-19 16:39:35,568 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-31
+2025-04-19 16:39:35,665 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-32
+2025-04-19 16:39:35,767 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-33
+2025-04-19 16:39:35,866 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-34
+2025-04-19 16:39:35,963 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-35
+2025-04-19 16:39:36,068 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-36
+2025-04-19 16:39:36,170 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-37
+2025-04-19 16:39:36,267 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-38
+2025-04-19 16:39:36,368 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-39
+2025-04-19 16:39:36,465 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-40
+2025-04-19 16:39:36,567 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-41
+2025-04-19 16:39:36,668 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-42
+2025-04-19 16:39:36,764 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-43
+2025-04-19 16:39:36,867 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-44
+2025-04-19 16:39:36,967 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-45
+2025-04-19 16:39:37,064 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-46
+2025-04-19 16:39:37,167 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-47
+2025-04-19 16:39:37,268 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-48
+2025-04-19 16:39:37,367 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-49
+2025-04-19 16:39:37,467 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-50
+2025-04-19 16:39:37,565 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-51
+2025-04-19 16:39:37,667 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-52
+2025-04-19 16:39:37,767 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-53
+2025-04-19 16:39:37,868 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-54
+2025-04-19 16:39:37,967 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-55
+2025-04-19 16:39:38,068 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-56
+2025-04-19 16:39:38,170 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-57
+2025-04-19 16:39:38,267 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-58
+2025-04-19 16:39:38,365 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-59
+2025-04-19 16:39:38,467 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-60
+2025-04-19 16:39:38,567 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-61
+2025-04-19 16:39:38,667 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-62
+2025-04-19 16:39:38,768 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-63
+2025-04-19 16:39:38,870 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-64
+2025-04-19 16:39:38,966 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-65
+2025-04-19 16:39:39,063 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-66
+2025-04-19 16:39:39,166 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-67
+2025-04-19 16:39:39,268 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-68
+2025-04-19 16:39:39,367 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-69
+2025-04-19 16:39:39,467 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-70
+2025-04-19 16:39:39,568 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-71
+2025-04-19 16:39:39,664 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-72
+2025-04-19 16:39:39,766 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-73
+2025-04-19 16:39:39,864 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-74
+2025-04-19 16:39:39,970 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-75
+2025-04-19 16:39:40,064 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-76
+2025-04-19 16:39:40,169 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-77
+2025-04-19 16:39:40,267 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-78
+2025-04-19 16:39:40,364 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-79
+2025-04-19 16:39:40,464 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-80
+2025-04-19 16:39:40,566 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-81
+2025-04-19 16:39:40,671 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-82
+2025-04-19 16:39:40,764 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-83
+2025-04-19 16:39:40,867 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-84
+2025-04-19 16:39:40,968 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-85
+2025-04-19 16:39:41,067 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-86
+2025-04-19 16:39:41,167 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-87
+2025-04-19 16:39:41,266 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-88
+2025-04-19 16:39:41,370 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-89
+2025-04-19 16:39:41,464 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-90
+2025-04-19 16:39:41,567 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-91
+2025-04-19 16:39:41,664 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-92
+2025-04-19 16:39:41,768 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-93
+2025-04-19 16:39:41,869 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-94
+2025-04-19 16:39:41,967 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-95
+2025-04-19 16:39:42,072 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-96
+2025-04-19 16:39:42,167 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-97
+2025-04-19 16:39:42,265 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-98
+2025-04-19 16:39:42,363 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-99
+2025-04-19 16:39:42,469 INFO o.a.j.t.JMeterThread: Thread started: 100 Concurrent Users 1-100
+2025-04-19 16:40:04,296 INFO o.a.j.r.Summariser: summary +    200 in 00:00:31 =    6.4/s Avg:   154 Min:     0 Max: 30156 Err:   199 (99.50%) Active: 100 Started: 100 Finished: 0
+2025-04-19 16:40:04,302 INFO o.a.j.r.Summariser: summary =    201 in 00:00:32 =    6.3/s Avg:   154 Min:     0 Max: 30156 Err:   200 (99.50%)
+2025-04-19 16:40:34,504 INFO o.a.j.r.Summariser: summary +    255 in 00:00:30 =    8.4/s Avg: 10006 Min:     0 Max: 30054 Err:   170 (66.67%) Active: 100 Started: 100 Finished: 0
+2025-04-19 16:40:34,516 INFO o.a.j.r.Summariser: summary =    456 in 00:01:02 =    7.4/s Avg:  5663 Min:     0 Max: 30156 Err:   370 (81.14%)
+2025-04-19 16:40:52,753 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-43
+2025-04-19 16:40:52,757 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-43
+2025-04-19 16:40:52,759 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-29
+2025-04-19 16:40:52,760 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-29
+2025-04-19 16:40:52,760 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-34
+2025-04-19 16:40:52,760 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-34
+2025-04-19 16:40:52,761 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-76
+2025-04-19 16:40:52,761 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-76
+2025-04-19 16:40:52,762 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-92
+2025-04-19 16:40:52,762 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-92
+2025-04-19 16:40:52,764 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-66
+2025-04-19 16:40:52,764 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-66
+2025-04-19 16:40:52,805 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-30
+2025-04-19 16:40:52,805 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-30
+2025-04-19 16:40:52,876 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-86
+2025-04-19 16:40:52,876 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-86
+2025-04-19 16:40:52,934 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-6
+2025-04-19 16:40:52,934 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-6
+2025-04-19 16:40:52,936 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-85
+2025-04-19 16:40:52,936 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-85
+2025-04-19 16:40:52,943 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-5
+2025-04-19 16:40:52,943 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-5
+2025-04-19 16:40:52,944 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-14
+2025-04-19 16:40:52,944 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-14
+2025-04-19 16:40:52,946 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-49
+2025-04-19 16:40:52,946 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-49
+2025-04-19 16:40:52,946 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-87
+2025-04-19 16:40:52,946 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-87
+2025-04-19 16:40:52,947 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-1
+2025-04-19 16:40:52,947 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-1
+2025-04-19 16:40:52,952 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-63
+2025-04-19 16:40:52,952 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-63
+2025-04-19 16:40:52,963 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-48
+2025-04-19 16:40:52,963 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-48
+2025-04-19 16:40:52,977 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-71
+2025-04-19 16:40:52,977 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-71
+2025-04-19 16:40:52,980 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-59
+2025-04-19 16:40:52,980 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-59
+2025-04-19 16:40:52,984 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-10
+2025-04-19 16:40:52,984 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-10
+2025-04-19 16:40:52,985 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-69
+2025-04-19 16:40:52,985 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-69
+2025-04-19 16:40:52,987 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-91
+2025-04-19 16:40:52,987 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-91
+2025-04-19 16:40:52,991 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-19
+2025-04-19 16:40:52,991 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-19
+2025-04-19 16:40:52,993 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-32
+2025-04-19 16:40:52,993 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-32
+2025-04-19 16:40:52,995 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-77
+2025-04-19 16:40:52,995 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-77
+2025-04-19 16:40:53,021 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-84
+2025-04-19 16:40:53,021 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-84
+2025-04-19 16:40:53,023 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-40
+2025-04-19 16:40:53,023 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-40
+2025-04-19 16:40:53,027 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-58
+2025-04-19 16:40:53,027 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-58
+2025-04-19 16:40:53,028 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-75
+2025-04-19 16:40:53,028 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-75
+2025-04-19 16:40:53,033 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-72
+2025-04-19 16:40:53,033 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-72
+2025-04-19 16:40:53,037 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-51
+2025-04-19 16:40:53,038 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-51
+2025-04-19 16:40:53,043 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-68
+2025-04-19 16:40:53,043 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-68
+2025-04-19 16:40:53,048 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-45
+2025-04-19 16:40:53,048 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-45
+2025-04-19 16:40:53,062 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-35
+2025-04-19 16:40:53,062 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-35
+2025-04-19 16:40:53,071 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-80
+2025-04-19 16:40:53,072 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-80
+2025-04-19 16:40:53,075 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-37
+2025-04-19 16:40:53,076 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-37
+2025-04-19 16:40:53,078 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-28
+2025-04-19 16:40:53,078 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-28
+2025-04-19 16:40:53,078 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-97
+2025-04-19 16:40:53,078 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-97
+2025-04-19 16:40:53,083 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-24
+2025-04-19 16:40:53,083 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-24
+2025-04-19 16:40:53,085 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-95
+2025-04-19 16:40:53,085 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-95
+2025-04-19 16:40:53,087 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-79
+2025-04-19 16:40:53,087 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-79
+2025-04-19 16:40:53,088 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-22
+2025-04-19 16:40:53,088 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-22
+2025-04-19 16:40:53,088 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-16
+2025-04-19 16:40:53,088 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-16
+2025-04-19 16:40:53,089 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-82
+2025-04-19 16:40:53,089 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-82
+2025-04-19 16:40:53,089 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-3
+2025-04-19 16:40:53,089 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-3
+2025-04-19 16:40:53,091 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-27
+2025-04-19 16:40:53,092 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-27
+2025-04-19 16:40:53,098 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-100
+2025-04-19 16:40:53,098 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-100
+2025-04-19 16:40:53,108 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-65
+2025-04-19 16:40:53,109 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-65
+2025-04-19 16:40:53,112 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-96
+2025-04-19 16:40:53,112 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-96
+2025-04-19 16:40:53,113 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-26
+2025-04-19 16:40:53,113 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-26
+2025-04-19 16:40:53,115 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-64
+2025-04-19 16:40:53,115 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-64
+2025-04-19 16:40:53,116 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-9
+2025-04-19 16:40:53,116 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-9
+2025-04-19 16:40:53,117 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-20
+2025-04-19 16:40:53,117 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-20
+2025-04-19 16:40:53,117 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-21
+2025-04-19 16:40:53,117 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-21
+2025-04-19 16:40:53,118 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-31
+2025-04-19 16:40:53,118 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-31
+2025-04-19 16:40:53,122 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-54
+2025-04-19 16:40:53,122 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-54
+2025-04-19 16:40:53,123 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-17
+2025-04-19 16:40:53,123 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-17
+2025-04-19 16:40:53,126 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-12
+2025-04-19 16:40:53,126 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-12
+2025-04-19 16:40:53,129 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-7
+2025-04-19 16:40:53,130 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-7
+2025-04-19 16:40:53,134 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-56
+2025-04-19 16:40:53,134 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-56
+2025-04-19 16:40:53,138 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-94
+2025-04-19 16:40:53,138 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-94
+2025-04-19 16:40:53,168 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-4
+2025-04-19 16:40:53,168 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-4
+2025-04-19 16:40:53,169 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-46
+2025-04-19 16:40:53,169 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-46
+2025-04-19 16:40:53,170 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-81
+2025-04-19 16:40:53,170 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-81
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-52
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-52
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-36
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-36
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-13
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-13
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-39
+2025-04-19 16:40:53,171 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-39
+2025-04-19 16:40:53,176 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-83
+2025-04-19 16:40:53,176 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-83
+2025-04-19 16:40:53,176 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-15
+2025-04-19 16:40:53,177 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-15
+2025-04-19 16:40:53,178 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-62
+2025-04-19 16:40:53,178 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-62
+2025-04-19 16:40:53,178 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-74
+2025-04-19 16:40:53,178 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-74
+2025-04-19 16:40:53,179 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-38
+2025-04-19 16:40:53,179 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-38
+2025-04-19 16:40:53,181 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-57
+2025-04-19 16:40:53,181 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-57
+2025-04-19 16:40:53,185 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-93
+2025-04-19 16:40:53,185 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-93
+2025-04-19 16:40:53,186 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-53
+2025-04-19 16:40:53,186 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-53
+2025-04-19 16:40:53,186 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-89
+2025-04-19 16:40:53,186 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-89
+2025-04-19 16:40:53,189 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-55
+2025-04-19 16:40:53,189 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-55
+2025-04-19 16:40:53,189 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-73
+2025-04-19 16:40:53,189 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-73
+2025-04-19 16:40:53,190 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-70
+2025-04-19 16:40:53,190 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-70
+2025-04-19 16:40:53,194 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-44
+2025-04-19 16:40:53,194 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-61
+2025-04-19 16:40:53,194 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-61
+2025-04-19 16:40:53,194 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-44
+2025-04-19 16:40:53,194 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-18
+2025-04-19 16:40:53,195 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-18
+2025-04-19 16:40:53,198 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-41
+2025-04-19 16:40:53,198 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-41
+2025-04-19 16:40:53,200 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-99
+2025-04-19 16:40:53,200 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-99
+2025-04-19 16:40:53,201 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-88
+2025-04-19 16:40:53,201 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-88
+2025-04-19 16:40:53,201 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-67
+2025-04-19 16:40:53,201 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-67
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-33
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-33
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-8
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-8
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-11
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-11
+2025-04-19 16:40:53,202 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-2
+2025-04-19 16:40:53,203 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-2
+2025-04-19 16:40:53,203 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-42
+2025-04-19 16:40:53,203 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-25
+2025-04-19 16:40:53,207 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-50
+2025-04-19 16:40:53,207 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-78
+2025-04-19 16:40:53,206 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-23
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-50
+2025-04-19 16:40:53,205 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-98
+2025-04-19 16:40:53,205 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-47
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-98
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-47
+2025-04-19 16:40:53,204 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-60
+2025-04-19 16:40:53,204 INFO o.a.j.t.JMeterThread: Thread is done: 100 Concurrent Users 1-90
+2025-04-19 16:40:53,203 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-42
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-60
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-90
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-23
+2025-04-19 16:40:53,211 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-78
+2025-04-19 16:40:53,210 INFO o.a.j.t.JMeterThread: Thread finished: 100 Concurrent Users 1-25
+2025-04-19 16:40:53,211 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2025-04-19 16:40:53,218 INFO o.a.j.r.Summariser: summary +  14544 in 00:00:19 =  776.0/s Avg:   338 Min:     0 Max: 79556 Err: 14460 (99.42%) Active: 0 Started: 100 Finished: 100
+2025-04-19 16:40:53,218 INFO o.a.j.r.Summariser: summary =  15000 in 00:01:21 =  185.9/s Avg:   500 Min:     0 Max: 79556 Err: 14830 (98.87%)
