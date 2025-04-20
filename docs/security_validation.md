@@ -12,7 +12,7 @@ We also map remediation steps to the NIST Cybersecurity Framework.
 
 ---
 
-## 1. OWASP ZAP Scan
+## 1. OWASP ZAP Scan [Review_"Security-ZAP-Report.html"]
 
 **Scan Date:** April 19, 2025  
 **Targets:**  
@@ -20,7 +20,7 @@ We also map remediation steps to the NIST Cybersecurity Framework.
 - http://localhost:5002  
 - http://localhost:3000
 
-### 🔍 Key Findings
+### Key Findings
 
 | Risk Level | Count |
 |------------|-------|
@@ -52,11 +52,11 @@ def set_secure_headers(response):
 - Audit static content for suspicious comments and timestamps
 
 ### Conclusion
-- Open the ZAP-Report.html in any browser to view the detailed report.
+- Open the Security-ZAP-Report.html in any browser to view the detailed report.
 
 ---
 
-## 2. Nmap Scan
+## 2. Nmap Scan [Review_"security_scan_results.txt"]
 
 **Command Used:**
 ```bash
